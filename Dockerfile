@@ -2,6 +2,9 @@ FROM iron/go
 
 WORKDIR /app
 
-ADD server /app/
+RUN mkdir /app/tpl
+
+COPY tpl/* /app/tpl/
+COPY server /app/
 
 ENTRYPOINT ["./server"]

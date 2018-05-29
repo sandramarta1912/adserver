@@ -8,6 +8,9 @@ import (
 	"net/http"
 	"sync"
 	"time"
+	"html/template"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type targetingInfo struct {
@@ -25,11 +28,111 @@ type partner struct {
 	Method  string        `db:"method"`
 }
 
+type userCollection struct {
+	Users []User
+}
+
+type User struct {
+	Id int `db:"id"`
+	Name string `db:"name"`
+	Email string `db:"email"`
+	Password string `db:"password"`
+}
+
 type bid struct {
 	Id        string
 	URL       string
 	Value     float64
 	PartnerId string
+}
+
+var myTemplates = template.Must(template.ParseGlob("tpl/*"))
+
+func HomeHandler(w http.ResponseWriter, r *http.Request){
+	err := myTemplates.ExecuteTemplate(w, "home", nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
+func LoginHandler(w http.ResponseWriter, r *http.Request){
+	if r.Method == http.MethodGet {
+		err := myTemplates.ExecuteTemplate(w, "login", nil)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	}
+
+	if r.Method == http.MethodPost {
+		fmt.Println("In login post")
+
+		err := r.ParseForm()
+		if err != nil {
+			panic(err)
+		}
+
+		email := r.PostFormValue("email")
+		password := r.PostFormValue("password")
+
+		selectAUserQuery := "SELECT * FROM Users WHERE email=?"
+		var u User
+		err = ds.MySql.Get(&u, selectAUserQuery, email)
+		if err != nil {
+			fmt.Printf("Cannot get user form db %s \n",err)
+			return
+		}
+
+		err = bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password))
+		if err != nil {
+			fmt.Printf("Bad password %s \n",err)
+			w.WriteHeader(http.StatusForbidden)
+			return
+		}
+
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	}
+
+
+}
+
+func RegisterHandler(w http.ResponseWriter, r *http.Request){
+	if r.Method == http.MethodGet {
+		err := myTemplates.ExecuteTemplate(w, "register", nil)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	}
+
+	if r.Method == http.MethodPost {
+		err := r.ParseForm()
+		if err != nil {
+			panic(err)
+		}
+
+		name := r.PostFormValue("name")
+		email := r.PostFormValue("email")
+		password := r.PostFormValue("password")
+
+
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+		if err != nil {
+			panic(err)
+		}
+
+		var createUserQuery = "INSERT Users SET name=?,email=?, password=?"
+		_, err = ds.MySql.Exec(createUserQuery, name, email, hashedPassword)
+		if err != nil {
+			fmt.Printf("Cannot insert user into database:  %v \n", err)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		} else {
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
+
+		}
+	}
 }
 
 func AdServerHandler(w http.ResponseWriter, r *http.Request) {
