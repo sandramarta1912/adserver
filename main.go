@@ -80,6 +80,8 @@ func main(){
 	adserver.HandleFunc("logout", LogoutHandler)
 	adserver.HandleFunc("/register", RegisterHandler)
 	adserver.Handle("/first", ValidateMiddleware(http.HandlerFunc(FirstHandler)))
+	adserver.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
+
 
 	fmt.Println("Server started on 3003...")
 	http.ListenAndServe(":3003", adserver)
