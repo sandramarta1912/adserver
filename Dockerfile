@@ -5,6 +5,6 @@ WORKDIR /app
 RUN mkdir /app/tpl
 
 COPY tpl/* /app/tpl/
-COPY server /app/
+COPY adserver /app/
 
-ENTRYPOINT ["./server"]
+ENTRYPOINT ["./adserver"]
