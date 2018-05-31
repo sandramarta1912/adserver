@@ -40,7 +40,9 @@ pipeline {
             }
             steps {
                 dir("$GOPATH/src/github.com/sandramarta1912/adserver") {
-                   sh 'docker service create --name adserver --network my-overlay  --env MYSQL_DSN="root:cms@tcp(mysql:3306)/admin" -p 3001:3001 adserver:latest'
+                    sh 'docker network create -d overlay my-overlay'
+                    sh 'docker service rm adserver'
+                   sh 'docker service create --name adserver --network my-overlay  --env MYSQL_DSN="root:cms@tcp(mysql:3306)/admin" -p 3003:3003 adserver:latest'
                 }
             }
         }
