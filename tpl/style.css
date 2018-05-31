@@ -1,0 +1,38 @@
+/* Keep footer at bottom */
+* {
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
+#main-container {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #3e4c5e;
+}
+
+/* end of keep footer at bottom */
+
+.navbar li:first-child a {
+  font-size: 23px;
+  font-family: 'Anton', sans-serif;
+}
+
