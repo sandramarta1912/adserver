@@ -81,7 +81,6 @@ func main(){
 	adserver.HandleFunc("/register", RegisterHandler)
 	adserver.Handle("/first", ValidateMiddleware(http.HandlerFunc(FirstHandler)))
 
-
 	fmt.Println("Server started on 3003...")
 	http.ListenAndServe(":3003", adserver)
 }

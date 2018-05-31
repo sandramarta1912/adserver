@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"time"
 	"html/template"
-	"encoding/base64"
-
 	"golang.org/x/crypto/bcrypt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/mitchellh/mapstructure"
@@ -66,9 +64,6 @@ func FirstHandler(w http.ResponseWriter, r *http.Request){
 
 
 func HomeHandler(w http.ResponseWriter, r *http.Request){
-	data := `{"user_id":"a1b2c3","username":"nikola"}`
-	uEnc := base64.URLEncoding.EncodeToString([]byte(data))
-	fmt.Println(uEnc)
 	err := myTemplates.ExecuteTemplate(w, "home", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
