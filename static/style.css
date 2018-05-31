@@ -31,8 +31,23 @@ footer {
 
 /* end of keep footer at bottom */
 
-.navbar li:first-child a {
+/* Home button on homepage */
+
+#homebutton {
   font-size: 23px;
   font-family: 'Anton', sans-serif;
+}
+
+/* User icon on navbar from userpage */
+
+.fas.fa-user-circle {
+  font-size: 37px;
+  color: black;
+}
+
+/* Sidebar from userpage */
+
+.nav-pills a {
+  color: #000000;
 }
 
