@@ -10,6 +10,9 @@ import (
 	"time"
 	"os"
 	"log"
+	"github.com/dgrijalva/jwt-go"
+	"encoding/json"
+	"github.com/gorilla/context"
 )
 
 type datastore struct {
@@ -74,9 +77,44 @@ func main(){
 
 	adserver.HandleFunc("/", HomeHandler)
 	adserver.HandleFunc("/login", LoginHandler)
+	adserver.HandleFunc("logout", LogoutHandler)
 	adserver.HandleFunc("/register", RegisterHandler)
+	adserver.Handle("/first", ValidateMiddleware(http.HandlerFunc(FirstHandler)))
 
 
 	fmt.Println("Server started on 3003...")
 	http.ListenAndServe(":3003", adserver)
+}
+
+func ValidateMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		c, err := r.Cookie("j")
+		if err != nil {
+			fmt.Printf("Error at cookie:  %v \n", err)
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
+			return
+		}
+		bearerToken := c.Value
+		if bearerToken != "" {
+			token, err := jwt.Parse(bearerToken, func(token *jwt.Token) (interface{}, error) {
+				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+					return nil, fmt.Errorf("There was an error")
+				}
+				return []byte("secret"), nil
+			})
+			if err != nil {
+				json.NewEncoder(w).Encode(err.Error())
+				return
+			}
+			if token.Valid {
+				context.Set(r, "decoded", token.Claims)
+				next(w, r)
+			} else {
+				json.NewEncoder(w).Encode("Invalid authorization token")
+			}
+
+		} else {
+			json.NewEncoder(w).Encode("An authorization header is required")
+		}
+	})
 }
