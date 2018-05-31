@@ -9,8 +9,6 @@ import (
 	"html/template"
 	"golang.org/x/crypto/bcrypt"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/mitchellh/mapstructure"
-	"github.com/gorilla/context"
 )
 
 type targetingInfo struct {
@@ -56,10 +54,15 @@ type Data struct {
 var myTemplates = template.Must(template.ParseGlob("tpl/*"))
 
 func FirstHandler(w http.ResponseWriter, r *http.Request){
-	decoded := context.Get(r, "decoded")
-	var data Data
-	mapstructure.Decode(decoded.(jwt.MapClaims), &data)
-	json.NewEncoder(w).Encode(data)
+	err := myTemplates.ExecuteTemplate(w, "userpage", nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	//decoded := context.Get(r, "decoded")
+	//var data Data
+	//mapstructure.Decode(decoded.(jwt.MapClaims), &data)
+	//json.NewEncoder(w).Encode(data)
 }
 
 
@@ -163,10 +166,11 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request){
 
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	cookie := &http.Cookie{
-		Name:   "e",
+		Name:   "j",
 		MaxAge: -1}
 	http.SetCookie(w, cookie)
-	http.Redirect(w, r, "/login", http.StatusSeeOther)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+
 
 }
 

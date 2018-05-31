@@ -77,7 +77,7 @@ func main(){
 
 	adserver.HandleFunc("/", HomeHandler)
 	adserver.HandleFunc("/login", LoginHandler)
-	adserver.HandleFunc("logout", LogoutHandler)
+	adserver.HandleFunc("/logout", LogoutHandler)
 	adserver.HandleFunc("/register", RegisterHandler)
 	adserver.Handle("/first", ValidateMiddleware(http.HandlerFunc(FirstHandler)))
 	adserver.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
