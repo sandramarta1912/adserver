@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="main-container">
+      <nav class="navbar navbar-expand navbar-light bg-white fixed-top">
+        <div class="container-fluid">
+          <a href="/" class="navbar-brand"><img src="../static/img/brand.png" data-toggle="tooltip" data-placement="bottom" title="Acasa"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCustom">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCustom">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-user-circle"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Profile</a>
+                  <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt mr-2"></i>Log out</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="container-fluid">
+        <div class="row mt-5">
+          <div class="col-sm-3 col-md-4 col-lg-3 col-xl-2">
+            <div class="nav flex-column nav-pills mt-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="true"><i class="fas fa-users mr-2"></i>User details</a>
+                <a class="nav-link" id="v-pills-publisher-tab" data-toggle="pill" href="#v-pills-publisher" role="tab" aria-controls="v-pills-publisher" aria-selected="false"><i class="fas fa-bus mr-2"></i>Publisher</a>
+                <a class="nav-link" id="v-pills-advertiser-tab" data-toggle="pill" href="#v-pills-advertiser" role="tab" aria-controls="v-pills-advertiser" aria-selected="false"><i class="fab fa-adversal mr-2"></i>Advertiser</a>
+                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false"><i class="fas fa-cogs mr-2"></i>Settings</a>
+                <a class="nav-link" id="v-pills-contact-tab" data-toggle="pill" href="#v-pills-contact" role="tab" aria-controls="v-pills-contact" aria-selected="false"><i class="fas fa-envelope mr-2"></i>Contact</a>
+              </div>
+          </div>
+          <div class="col-sm-9 col-md-8 col-lg-9 col-xl-10 mt-5">
+            <div id="content">
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+                  <p>Cîteodată mă gîndesc că, în ciuda regimului comunist, am făcut parte dintr-o generație „protejată“, în sensul că ne petreceam mai mult timp cu părinții noștri decît petrec copiii de astăzi. Pe vremea cînd job-ul se numea serviciu, aveam părinți mai puțin ocupați, cei mai mulți frecau menta prin întreprinderile statului, cu ochii pe ceas, așteptînd să treacă cele opt ore regulamentare de lucru ca să se întoarcă acasă. Într-un regim totalitar, salariile erau cam aceleași, ideea de carieră era destul de imprecisă, oamenii nu-și doreau neapărat avansări și să iasă în evidență la locul de muncă pentru că ar fi implicat altfel de compromisuri, despre afaceri nici nu se punea problema, cel mult unii mai șmecheri făceau bișniță. Așadar, familia era un refugiu, poate mai mult decît astăzi. Nu eram crescuţi de bone sau cel puţin nu se numeau bone, ci „femei“ – de multe ori vecine de prin bloc care aveau grijă de copiii altora pentru cîteva ore, fără alte obligații. De regulă, de pe la vîrsta de 3 ani eram pasaţi și în grija statului (mai întîi la grădiniţă, apoi la şcoală), dar tot familia era „celula de bază a societății“. Parcă erau și mai puține divorțuri – din cauza vremurilor pe care le trăiau, oamenii erau mai toleranți unii cu alții, presiunea socială era mai mică, iar șansele de a-ți găsi marea iubire pe Internet erau, desigur, nule. Și ne mai întrebăm de unde „a apărut“ familia tradițională, dar și mentalitățile care s-au format în jurul ei… iată cum își are rădăcini adînci, înfipte în anii uniformizării, anii comunismului – o lume disfuncțională în care ne învîrteam cu toții fără sens. Iar pentru noi, copiii, figurile centrale ale acestui mic univers erau mama și tata</p>
+                </div>
+                <div class="tab-pane fade" id="v-pills-publisher" role="tabpanel" aria-labelledby="v-pills-publisher-tab">
+                  <p>Se spune că, în zilele noastre, copiii se maturizează mai repede. Relaţia autentică dintre părinte şi copil nu durează mult, acum breşele apar mult mai devreme. La un moment dat, indiferent de afecţiunea pe care o acorzi sau cea pe care o primeşti, părinţii devin indezirabili – sînt doar acea alungire incomodă a ta de care ai vrea să te rupi cît mai repede. E ca o bulă care se sparge. În momentul în care ai ajuns în afara bulei, împreună nu mai există, iar părinţii şi tot ceea ce propun ei, toate acele activităţi comune pe care le făceaţi înainte într-un mod firesc – de la a sta împreună la masă şi pînă la a merge împreună la supermarket – se transformă în situaţii jenante. Abia atunci observi că tata vorbeşte prea tare pe stradă sau că mama nu ştie să se îmbrace „ca lumea“, că nu te mai reprezintă.</p>
+                </div>
+                <div class="tab-pane fade" id="v-pills-advertiser" role="tabpanel" aria-labelledby="v-pills-advertiser-tab">
+                  <p>Nu mai funcţionează nimic – nici relaţia de tip buddy dintre tată şi fiu, de tipul: „Hai să jucăm un fotbal şi să discutăm despre problemele tale!“, nici relaţia dintre mamă şi fiică, bazată pe sfaturi de viață şi pe schimbul de pantofi şi de rochii. Excesul de comunicare de acum (Facebook și altele) n-a făcut decît să împingă vîrsta rupturii cu doi-trei ani mai devreme (adică pe la 12-13 ani), însă problemele au rămas aceleaşi. Cînd se atinge vîrsta critică, pentru un părinte timpul petrecut cu copilul său devine un coşmar – e în permanenţă mofluz şi irascibil, are pretenţii, însă nu mai are aşteptări de la tine, se enervează dacă îi cumperi ceva, însă e apatic dacă nu-i cumperi nimic.</p>
+                  <p>Dacă îl iei cu tine în concediu, să te aştepţi la un dezastru, fiindcă tu nu eşti decît un înlocuitor detestabil pentru gaşca minunată de prieteni de vîrsta lui pe care şi-o doreşte atunci şi acolo. Dacă îl laşi cinci minute în faţa hotelului, va pleca aiurea şi se va întoarce plin de frustrări, apoi se va uita la tine ca şi cum ai fi un personaj dintr-un film vechi, alb-negru. Psihologia adolescentului nu s-a schimbat odată cu tehnologia. Îi văd pe stradă, chiar dacă acum se îmbracă altfel, au căşti în urechi, îşi butonează telefoanele şi vorbesc la ele într-o romgleză cool – adolescenţi care bravează, însă de fapt nu ştiu unde să se mai ascundă de propriile umbre, iar cea mai mare problemă a lor este faptul că au părinţi.</p>
+                </div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                  <p>Nu mai funcţionează nimic – nici relaţia de tip buddy dintre tată şi fiu, de tipul: „Hai să jucăm un fotbal şi să discutăm despre problemele tale!“, nici relaţia dintre mamă şi fiică, bazată pe sfaturi de viață şi pe schimbul de pantofi şi de rochii. Excesul de comunicare de acum (Facebook și altele) n-a făcut decît să împingă vîrsta rupturii cu doi-trei ani mai devreme (adică pe la 12-13 ani), însă problemele au rămas aceleaşi. Cînd se atinge vîrsta critică, pentru un părinte timpul petrecut cu copilul său devine un coşmar – e în permanenţă mofluz şi irascibil, are pretenţii, însă nu mai are aşteptări de la tine, se enervează dacă îi cumperi ceva, însă e apatic dacă nu-i cumperi nimic.</p>
+                  <p>Dacă îl iei cu tine în concediu, să te aştepţi la un dezastru, fiindcă tu nu eşti decît un înlocuitor detestabil pentru gaşca minunată de prieteni de vîrsta lui pe care şi-o doreşte atunci şi acolo. Dacă îl laşi cinci minute în faţa hotelului, va pleca aiurea şi se va întoarce plin de frustrări, apoi se va uita la tine ca şi cum ai fi un personaj dintr-un film vechi, alb-negru. Psihologia adolescentului nu s-a schimbat odată cu tehnologia. Îi văd pe stradă, chiar dacă acum se îmbracă altfel, au căşti în urechi, îşi butonează telefoanele şi vorbesc la ele într-o romgleză cool – adolescenţi care bravează, însă de fapt nu ştiu unde să se mai ascundă de propriile umbre, iar cea mai mare problemă a lor este faptul că au părinţi.</p>
+                  <p>Reconcilierea intervine după douăzeci şi ceva de ani şi, treptat, familia redevine „celula de bază a societăţii“. Familia cea nouă care tinde să o includă în ea şi pe cea veche. De obicei, părinţii sînt din nou indispensabili, în momentul în care copiii au la rîndul lor copii şi, astfel, li se redescoperă o utilitate. Şi chiar dacă nu au venit încă pe lume nepoţii, mama te vizitează periodic în noua ta casă ca să-ți gătească ceva bun, pentru că tu n-ai timp, să facă curat sau măcar să-şi dea cu părerea despre lustra cea nouă din dormitor sau despre jaluzele. Vine și tata ca să bată un cui, să îți recomande un mecanic bun pentru maşină sau pur și simplu ca să te scoată la o bere.</p>
+                </div>
+                <div class="tab-pane fade" id="v-pills-contact" role="tabpanel" aria-labelledby="v-pills-contact-tab">
+                  <p>În ciuda regulilor de bun-simţ şi a unor limite pe care viaţa de adult le impune, există semne clare că părinţii s-au „reîntors“, iar influenţa lor e mai puternică decît oricînd. Acel cordon ombilical pe care te-ai înverşunat să-l tai în adolescenţă se reînnoadă de la sine, iar legătură pare una mai trainică decît cea din copilărie. Iar părinţii sînt conştienţi că şi au recuperat copilul pierdut și reconcilierea reprezintă pentru ei o perioadă de înflorire. Vor simţi din nou că le aparţii, de data aceasta cu un sentiment de mîndrie: ei te-au crescut şi te-au educat, tu te-ai „rea-lizat“, ai un job bun, eşti la casa ta, te-ai căsătorit, ai la rîndul tău copii. Mărturii sînt toate acele fotografii pe care le poartă în permanenţă cu ei (sau le ţin la îndemînă într-un folder de pe desktop) pentru a le arăta unui prieten vechi sau unui fost coleg de serviciu: „Ăsta e livingul lor…“, „Asta e maşina pe care şi-au adus-o din Germania…“, „Aici e la petrecerea de Crăciun, de la firmă… „Aici sînt în vacanţă, în Croaţia…“</p>
+                  <p>Primele semne că părinţii încep să îmbătrînească sînt un şoc pentru copiii-adulţi. Devin brusc conştienţi de trecerea propriului lor timp şi de faptul că acea relaţie, cu suişurile şi coborîşurile ei, pe care însă se puteau baza la un mod necondiţionat, indiferent de ce le-ar fi rezervat viaţa, este, de fapt, una atît de fragilă. Şi că, la un moment dat, cordonul ombilical se va rupe definitiv, iar acum nu va mai fi nimeni de vină. În momentul în care realizezi toate acestea, vrei dintr-odată să faci împreună cu părinţii tăi toate acele lucruri banale şi mărunte pe care nu le-ai făcut vreme de zece-douăzeci de ani.</p>
+                  <p>La o terasă de la Sinaia, o mamă în jur de 80 de ani şi o fiică de 60 stau la o cafea. Nu-şi vorbesc, doar îşi savurează cafeaua şi un moment de linişte, de familiaritate. Vor exista tot timpul lucruri care vor rămîne nespuse.</p>
+                </div>
+              </div>                     
+            </div>    
+          </div>
+        </div>
+      </div> 
+      <footer class="footer">
+        <div class="container-fluid">
+          <br>
+          <p class="text-center text-white">&copy; 2018 AdServer Network. All rights reserved</p>
+        </div>
+      </footer>
+    </div>     
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
