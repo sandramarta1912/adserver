@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home AdServer</title>
-    <link rel="stylesheet" href="../static/style.css">
+    {{if not .Random}}
+        <link href="../static/style.css" rel="stylesheet">
+    {{else}}
+        <link href="../static/style.css?v={{.Random}}" rel="stylesheet">
+    {{end}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
 </head>

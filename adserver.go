@@ -9,6 +9,8 @@ import (
 	"html/template"
 	"golang.org/x/crypto/bcrypt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/mitchellh/mapstructure"
+	"github.com/gorilla/context"
 )
 
 type targetingInfo struct {
@@ -47,27 +49,43 @@ type bid struct {
 type JwtToken struct {
 	Token string `json:"token"`
 }
-type Data struct {
+
+type DecodedData struct {
 	Email string
 }
+type TransferedData struct {
+	Random int
+	User User
+}
+
+
 
 var myTemplates = template.Must(template.ParseGlob("tpl/*"))
 
-func FirstHandler(w http.ResponseWriter, r *http.Request){
-	err := myTemplates.ExecuteTemplate(w, "userpage", nil)
+func UserHandler(w http.ResponseWriter, r *http.Request){
+	decoded := context.Get(r, "decoded")
+	var data DecodedData
+	mapstructure.Decode(decoded.(jwt.MapClaims), &data)
+	selectAUserQuery := "SELECT * FROM Users WHERE email=?"
+	var u User
+	err := ds.MySql.Get(&u, selectAUserQuery, data.Email)
+	if err != nil {
+		fmt.Printf("Cannot get user form db %s \n",err)
+		return
+	}
+
+	err = myTemplates.ExecuteTemplate(w, "userpage", TransferedData{getRandomFromContext(r), u})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	//decoded := context.Get(r, "decoded")
-	//var data Data
-	//mapstructure.Decode(decoded.(jwt.MapClaims), &data)
-	//json.NewEncoder(w).Encode(data)
 }
 
 
 func HomeHandler(w http.ResponseWriter, r *http.Request){
-	err := myTemplates.ExecuteTemplate(w, "home", nil)
+	setRandomInContext(r)
+
+	err := myTemplates.ExecuteTemplate(w, "home", TransferedData{getRandomFromContext(r), User{}})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -76,7 +94,9 @@ func HomeHandler(w http.ResponseWriter, r *http.Request){
 
 func LoginHandler(w http.ResponseWriter, r *http.Request){
 	if r.Method == http.MethodGet {
-		err := myTemplates.ExecuteTemplate(w, "login", nil)
+		setRandomInContext(r)
+
+		err := myTemplates.ExecuteTemplate(w, "login", TransferedData{getRandomFromContext(r), User{}})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -122,13 +142,14 @@ func LoginHandler(w http.ResponseWriter, r *http.Request){
 		cookie := &http.Cookie{Name:"j", Value:tokenString}
 		http.SetCookie(w, cookie)
 
-		http.Redirect(w, r, "/first", http.StatusSeeOther)
+		http.Redirect(w, r, "/userpage", http.StatusSeeOther)
 	}
 }
 
 func RegisterHandler(w http.ResponseWriter, r *http.Request){
 	if r.Method == http.MethodGet {
-		err := myTemplates.ExecuteTemplate(w, "register", nil)
+		setRandomInContext(r)
+		err := myTemplates.ExecuteTemplate(w, "register", TransferedData{getRandomFromContext(r), User{}})
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return

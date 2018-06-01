@@ -13,6 +13,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"encoding/json"
 	"github.com/gorilla/context"
+	"math/rand"
 )
 
 type datastore struct {
@@ -39,6 +40,21 @@ func InitMySqlConn(dsn string) (*sqlx.DB, error) {
 	}
 
 	return ds.MySql, nil
+}
+func getRandomFromContext(r *http.Request) int {
+	var random int
+	switch r := context.Get(r, "random").(type) {
+	case int:
+		random = r
+
+	}
+	return random
+}
+
+func setRandomInContext(r *http.Request) {
+	rand.Seed(time.Now().UnixNano())
+	random := rand.Intn(100-0) + 0
+	context.Set(r, "random", random)
 }
 
 func main(){
@@ -72,16 +88,13 @@ func main(){
 		}
 	}
 
-
 	adserver := mux.NewRouter()
-
 	adserver.HandleFunc("/", HomeHandler)
 	adserver.HandleFunc("/login", LoginHandler)
 	adserver.HandleFunc("/logout", LogoutHandler)
 	adserver.HandleFunc("/register", RegisterHandler)
-	adserver.Handle("/first", ValidateMiddleware(http.HandlerFunc(FirstHandler)))
+	adserver.Handle("/userpage", ValidateMiddleware(http.HandlerFunc(UserHandler)))
 	adserver.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
-
 
 	fmt.Println("Server started on 3003...")
 	http.ListenAndServe(":3003", adserver)
@@ -109,6 +122,7 @@ func ValidateMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			}
 			if token.Valid {
 				context.Set(r, "decoded", token.Claims)
+				setRandomInContext(r)
 				next(w, r)
 			} else {
 				json.NewEncoder(w).Encode("Invalid authorization token")
